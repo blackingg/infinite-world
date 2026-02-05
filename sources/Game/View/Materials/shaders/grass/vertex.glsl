@@ -115,6 +115,33 @@ void main()
     float sunReflection = getSunReflection(viewDirection, worldNormal, viewNormal);
     color = getSunReflectionColor(color, sunReflection);
 
-    vColor = color;
+    // === NEON GLOW RADIUS EFFECT ===
+    // Calculate distance from player to this grass blade
+    float distanceToPlayer = length(modelCenter.xz - uPlayerPosition.xz);
+    
+    // Define the glow radius and falloff
+    float glowRadius = 2.0;
+    float falloffRadius = 8.0;
+    
+    // Calculate glow factor
+    float glowFactor = 1.0 - smoothstep(glowRadius, falloffRadius, distanceToPlayer);
+    
+    // Bleached color
+    float grayValue = dot(color, vec3(0.299, 0.587, 0.114));
+    vec3 bleachedColor = vec3(grayValue * 0.9);
+    
+    // Neon glow color - MAGENTA
+    vec3 darkMagenta = vec3(0.4, 0.0, 0.4);  
+    vec3 brightMagenta = vec3(1.0, 0.0, 1.0);
+    vec3 neonColor = mix(darkMagenta, brightMagenta, tipness);
+    
+    // Add emission/glow intensity
+    float glowIntensity = 1.5 + tipness * 0.5;
+    neonColor *= glowIntensity;
+    
+    // Mix between bleached and neon based on distance
+    vec3 finalColor = mix(bleachedColor, neonColor, glowFactor);
+
+    vColor = finalColor;
     // vColor = vec3(slope);
 }

@@ -58,6 +58,27 @@ void main()
     float sunReflection = getSunReflection(viewDirection, worldNormal, viewNormal);
     color = getSunReflectionColor(color, sunReflection);
 
+    // === NEON GLOW RADIUS EFFECT ===
+    // Calculate distance from player to this terrain point
+    float distanceToPlayer = length(modelPosition.xz - uPlayerPosition.xz);
+    
+    // Define the glow radius and falloff
+    float glowRadius = 2.0;
+    float falloffRadius = 8.0;
+    
+    // Calculate glow factor
+    float glowFactor = 1.0 - smoothstep(glowRadius, falloffRadius, distanceToPlayer);
+    
+    // Bleached color
+    float grayValue = dot(color, vec3(0.299, 0.587, 0.114));
+    vec3 bleachedColor = vec3(grayValue * 0.9);
+    
+    // Neon glow color - MAGENTA
+    vec3 neonColor = vec3(1.0, 0.0, 1.0) * 1.8;
+    
+    // Mix between bleached and neon based on distance
+    color = mix(bleachedColor, neonColor, glowFactor);
+
     // Fog
     vec2 screenUv = (gl_Position.xy / gl_Position.w * 0.5) + 0.5;
     color = getFogColor(color, depth, screenUv);
