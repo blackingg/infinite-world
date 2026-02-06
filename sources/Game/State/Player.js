@@ -62,8 +62,31 @@ export default class Player
             const x = Math.sin(this.rotation) * this.time.delta * speed
             const z = Math.cos(this.rotation) * this.time.delta * speed
 
-            this.position.current[0] -= x
-            this.position.current[2] -= z
+            // Collision Detection
+            const radius = 0.5
+            let allowX = true
+            let allowZ = true
+
+            if(this.game.view && this.game.view.trees)
+            {
+                // Check X axis
+                if(this.game.view.trees.checkCollision({ x: this.position.current[0] - x, z: this.position.current[2] }, radius))
+                {
+                    allowX = false
+                }
+
+                // Check Z axis
+                if(this.game.view.trees.checkCollision({ x: this.position.current[0], z: this.position.current[2] - z }, radius))
+                {
+                    allowZ = false
+                }
+            }
+
+            if(allowX)
+                this.position.current[0] -= x
+            
+            if(allowZ)
+                this.position.current[2] -= z
         }
 
         vec3.sub(this.position.delta, this.position.current, this.position.previous)

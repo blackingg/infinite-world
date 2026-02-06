@@ -6,6 +6,7 @@ import Player from './Player.js'
 import Renderer from './Renderer.js'
 import Sky from './Sky.js'
 import Terrains from './Terrains.js'
+import Trees from './Trees.js'
 import Water from './Water.js'
 
 import * as THREE from 'three'
@@ -37,6 +38,7 @@ export default class View
         this.chunks = new Chunks()
         this.player = new Player()
         this.grass = new Grass()
+        this.trees = new Trees()
     }
 
     resize()
@@ -55,6 +57,7 @@ export default class View
         this.chunks.update()
         this.player.update()
         this.grass.update()
+        this.trees.update()
         this.camera.update()
         this.renderer.update()
     }
