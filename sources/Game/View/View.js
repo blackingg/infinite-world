@@ -7,6 +7,9 @@ import Renderer from './Renderer.js'
 import Sky from './Sky.js'
 import Terrains from './Terrains.js'
 import Water from './Water.js'
+import Trees from './Trees.js'
+import SectionOrbs from './SectionOrbs.js'
+import SectionMeshes from './SectionMeshes.js'
 
 import * as THREE from 'three'
 
@@ -35,8 +38,11 @@ export default class View
         this.water = new Water()
         this.terrains = new Terrains()
         this.chunks = new Chunks()
+        this.trees = new Trees()
         this.player = new Player()
         this.grass = new Grass()
+        this.sectionOrbs = new SectionOrbs()
+        this.sectionMeshes = new SectionMeshes()
     }
 
     resize()
@@ -53,8 +59,10 @@ export default class View
         this.water.update()
         this.terrains.update()
         this.chunks.update()
+        this.trees.update()
         this.player.update()
         this.grass.update()
+        this.sectionOrbs.update()
         this.camera.update()
         this.renderer.update()
     }

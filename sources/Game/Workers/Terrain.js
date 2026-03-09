@@ -418,6 +418,56 @@ onmessage = function(event)
         }
     }
 
+// ... (existing code)
+
+    /**
+     * Trees
+     */
+    const treeCount = segments * segments
+    const trees = new Float32Array(treeCount * 5)
+    
+    // We reuse the seed and randomness from other parts or create a new one if needed
+    // For simplicity, let's use a simple probability based on noise or random
+    const treeFrequency = 0.1 // Adjust density
+    
+    let treeIndex = 0
+    
+    for(let iZ = 0; iZ < segments; iZ++)
+    {
+        for(let iX = 0; iX < segments; iX++)
+        {
+            const iPosition = (iZ * segments + iX) * 3
+            const x = positions[iPosition]
+            const y = positions[iPosition + 1]
+            const z = positions[iPosition + 2]
+            
+            // Basic rules: 
+            // 1. Above water (y > 2)
+            // 2. Not too high (y < 40)
+            // 3. Random chance
+            
+            // Use simplex noise for distribution? Or just random?
+            // Let's use noise for clumping
+            const noiseVal = grassRandom.noise2D(x * 0.05, z * 0.05)
+            
+            if(y > 2 && y < 40 && noiseVal > 0.3 && Math.random() < treeFrequency) 
+            {
+                 const scale = 0.8 + Math.random() * 0.6
+                 const type = Math.random() < 0.5 ? 0 : 1 // 0 = Birch, 1 = Cherry
+                 
+                 trees[treeIndex * 5    ] = x
+                 trees[treeIndex * 5 + 1] = y
+                 trees[treeIndex * 5 + 2] = z
+                 trees[treeIndex * 5 + 3] = scale
+                 trees[treeIndex * 5 + 4] = type
+                 treeIndex++
+            }
+        }
+    }
+    
+    // Trim array
+    const finalTrees = trees.slice(0, treeIndex * 5)
+
     // Post
     postMessage({
         id: id,
@@ -425,6 +475,7 @@ onmessage = function(event)
         normals: normals,
         indices: indices,
         texture: texture,
-        uv: uv
+        uv: uv,
+        trees: finalTrees
     })
 }

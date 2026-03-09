@@ -6,6 +6,10 @@ import Sun from './Sun.js'
 import Player from './Player.js'
 import Terrains from './Terrains.js'
 import Chunks from './Chunks.js'
+import SectionRegistry from './SectionRegistry.js'
+import SectionZones from './SectionZones.js'
+import SectionLoader from './SectionLoader.js'
+import { sectionsData } from './SectionsData.js'
 
 export default class State
 {
@@ -31,6 +35,14 @@ export default class State
         this.player = new Player()
         this.terrains = new Terrains()
         this.chunks = new Chunks()
+        this.sectionRegistry = new SectionRegistry()
+        this.sectionZones = new SectionZones()
+        this.sectionLoader = new SectionLoader()
+
+        for(const section of sectionsData)
+        {
+            this.sectionRegistry.register(section)
+        }
     }
 
     resize()
@@ -46,5 +58,6 @@ export default class State
         this.sun.update()
         this.player.update()
         this.chunks.update()
+        this.sectionZones.update()
     }
 }

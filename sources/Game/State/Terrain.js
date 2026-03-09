@@ -26,6 +26,7 @@ export default class Terrain
         this.indices = data.indices
         this.texture = data.texture
         this.uv = data.uv
+        this.trees = data.trees
 
         this.ready = true
 
