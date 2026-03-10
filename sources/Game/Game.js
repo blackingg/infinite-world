@@ -1,55 +1,46 @@
-import Debug from '@/Debug/Debug.js'
-import State from '@/State/State.js'
-import View from '@/View/View.js'
+import Debug from "@/Debug/Debug.js";
+import State from "@/State/State.js";
+import View from "@/View/View.js";
+import Loading from "./Loading.js";
 
-export default class Game
-{
-    static instance
+export default class Game {
+  static instance;
 
-    static getInstance()
-    {
-        return Game.instance
-    }
+  static getInstance() {
+    return Game.instance;
+  }
 
-    constructor()
-    {
-        if(Game.instance)
-            return Game.instance
+  constructor() {
+    if (Game.instance) return Game.instance;
 
-        Game.instance = this
+    Game.instance = this;
 
-        this.seed = 'p'
-        this.debug = new Debug()
-        this.state = new State()
-        this.view = new View()
-        
-        window.addEventListener('resize', () =>
-        {
-            this.resize()
-        })
+    this.seed = "p";
+    this.debug = new Debug();
+    this.state = new State();
+    this.view = new View();
+    this.loading = new Loading();
 
-        this.update()
-    }
+    window.addEventListener("resize", () => {
+      this.resize();
+    });
 
-    update()
-    {
-        this.state.update()
-        this.view.update()
+    this.update();
+  }
 
-        window.requestAnimationFrame(() =>
-        {
-            this.update()
-        })
-    }
+  update() {
+    this.state.update();
+    this.view.update();
 
-    resize()
-    {
-        this.state.resize()
-        this.view.resize()
-    }
+    window.requestAnimationFrame(() => {
+      this.update();
+    });
+  }
 
-    destroy()
-    {
-        
-    }
+  resize() {
+    this.state.resize();
+    this.view.resize();
+  }
+
+  destroy() {}
 }
