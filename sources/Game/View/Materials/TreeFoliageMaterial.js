@@ -28,7 +28,7 @@ export default class TreeFoliageMaterial extends CustomShaderMaterial
         })
 
         const textureLoader = new THREE.TextureLoader()
-        textureLoader.load('/sources/assets/textures/foliageSDF.png', (texture) => {
+        textureLoader.load('/assets/textures/foliageSDF.png', (texture) => {
             // foliageSDF is a mask, standard colorSpace is fine, but needs to be linear for exact threshold
             texture.colorSpace = THREE.NoColorSpace
             this.uniforms.uFoliageTexture.value = texture

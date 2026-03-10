@@ -4,7 +4,7 @@ export const sectionsData = [
         position: [30, 0, 30],
         orbRadius: 400,
         loadRadius: 200,
-        modelPath: '/sources/assets/models/sections/village.glb',
+        modelPath: '/assets/models/sections/village.glb',
         label: 'The Village',
         status: 'wip',
     }

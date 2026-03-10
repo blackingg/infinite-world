@@ -31,14 +31,14 @@ export default class Trees
         this.treeTypes = [
             {
                 name: 'birch',
-                url: '/sources/assets/models/trees/birchTreesVisual.glb',
+                url: '/assets/models/trees/birchTreesVisual.glb',
                 colorA: '#7da832',
                 colorB: '#3f6615',
                 trunkColor: '#5a3a28',
             },
             {
                 name: 'cherry',
-                url: '/sources/assets/models/trees/cherryTreesVisual.glb',
+                url: '/assets/models/trees/cherryTreesVisual.glb',
                 colorA: '#ff6285',
                 colorB: '#a42340',
                 trunkColor: '#4a2f26',
